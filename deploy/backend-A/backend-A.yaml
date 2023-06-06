@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: backend-a
+  name: backend-a
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-a
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: backend-a
+    spec:
+      containers:
+      - command:
+        - ./backend-a
+        image: backend-a
+        imagePullPolicy: Never
+        name: backend-a
+        ports:
+        - containerPort: 8080
+        resources: {}
+        env:
+        - name: BACKEND_ENV
+          value: "backend-a"
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: backend-a
+  name: backend-a
+  namespace: test
+spec:
+  ports:
+  - name: 50051-50051
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+    # nodePort: 31000
+  selector:
+    app: backend-a
+  type: ClusterIP
+status:
+  loadBalancer: {}
