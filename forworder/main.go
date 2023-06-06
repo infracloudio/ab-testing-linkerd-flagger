@@ -27,8 +27,6 @@ func main() {
 
 func Forworder(ctx *gin.Context) {
 
-	// backend := ctx.Request.Header.Get("x-backend")
-
 	client := &http.Client{}
 
 	// Create a new GET request
@@ -38,12 +36,10 @@ func Forworder(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Printf("QQ REQ HED->%v", ctx.Request.Header)
 
 	// Set headers on the request
 	req.Header = ctx.Request.Header
 
-	fmt.Printf("REQ HED->%v", req.Header)
 
 	// Send the request
 	resp, err := client.Do(req)
@@ -61,7 +57,6 @@ func Forworder(ctx *gin.Context) {
 	}
 
 	// Parse the response body into a JSON object
-	// var responseData ResponseData
 	var b interface{}
 	err = json.Unmarshal(body, &b)
 	if err != nil {
@@ -70,7 +65,6 @@ func Forworder(ctx *gin.Context) {
 		return
 	}
 	log.Printf("Response-->%v", b)
-	// if responseData.Backend == "backend-b"
 
 	ctx.JSON(resp.StatusCode, b)
 
