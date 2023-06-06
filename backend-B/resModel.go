@@ -23,3 +23,5 @@ type Rating struct {
 	Average     float32 `json:"average"`
 	ToatalVotes int     `json:"totalVotes"`
 }
+
+type d struct{}
