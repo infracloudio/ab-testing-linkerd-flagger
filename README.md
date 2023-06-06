@@ -18,6 +18,7 @@ Create and configure namespace with linkerd proxy so that Deployments created in
 For kind cluster build all the required images.
   ```
   $ make build-all
+  $ make load-kind
   ```
 For minikube cluster build the required images as follows:
   ```
