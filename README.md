@@ -26,12 +26,12 @@ For minikube cluster build the required images as follows:
   $ make build-all
   ```
 ## Deploy Application on the kubernetes cluster
-Deploy backend-a and backend-b 
+Deploy backend-a, backend-b and Forwarder
   ```
   $ make deploy-all
   ```
 
-NOTE: We should not enable Dynamic routing or traffic-splitting simultaneously.
+NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
 ## Header based Dynamic Routing
 ### Enable Dynamic Routing
   - To dynamically route traffic to another version of application i.e backend-b we need configure httpRoute with the following
