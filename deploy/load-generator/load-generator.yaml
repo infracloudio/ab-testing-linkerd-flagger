@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: test
+  labels:
+    app: load
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load
+  template:
+    metadata:
+      labels:
+        app: load
+    spec:
+      containers:
+      - name: load
+        image: load-generator
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ENDPOINT
+          value: "http://backend-a:8080/"
+        - name: CALL_DURATION
+          value: "20"
+        - name: SLEEP_DURATION
+          value: "10"
+        - name: NEW_VERSION_HEADER_KEY
+          value: ""
+        - name: NEW_VERSION_HEADER_VAL
+          value: ""

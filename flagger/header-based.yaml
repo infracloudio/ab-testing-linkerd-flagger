@@ -1,0 +1,30 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: backend-a
+  namespace: test
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-a
+  service:
+    port: 8080
+  analysis:
+    interval: 30s
+    threshold: 10
+    iterations: 5
+    match:
+      # curl -H 'X-Canary: always' http://app.example.com
+      - headers:
+          x-backend:
+            exact: "new"
+    metrics:
+    - name: request-success-rate
+      thresholdRange:
+        min: 99
+      interval: 1m
+    - name: request-duration
+      thresholdRange:
+        max: 500
+      interval: 30s

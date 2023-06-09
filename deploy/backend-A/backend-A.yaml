@@ -19,9 +19,7 @@ spec:
         app: backend-a
     spec:
       containers:
-      - command:
-        - ./backend-a
-        image: backend-a
+      - image: backend-a
         imagePullPolicy: Never
         name: backend-a
         ports:
@@ -30,6 +28,10 @@ spec:
         env:
         - name: BACKEND_ENV
           value: "backend-a"
+        - name: VERSION
+          value: "primary"
+        - name: HEADER
+          value: "x-backend"
         - name: POD_IP
           valueFrom:
             fieldRef:

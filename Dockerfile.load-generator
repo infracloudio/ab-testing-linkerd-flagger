@@ -1,0 +1,29 @@
+# Start from a base Go image
+FROM golang:1.17 AS builder
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Go modules manifests
+COPY go.mod go.sum ./
+
+# Download the Go dependencies
+RUN go mod download
+
+# Copy the source code to the container
+COPY ./load-generator .
+
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -o load-generator
+
+# Create a minimal container to run the Go application
+FROM scratch
+
+# Copy the built binary from the builder stage
+COPY --from=builder /app/load-generator /
+
+# Expose the port that the forwarder listens on
+EXPOSE 8080
+
+# Run the forwarder application
+ENTRYPOINT ["/load-generator"]
