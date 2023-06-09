@@ -2,24 +2,21 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 func TestApiGetBook(ctx *gin.Context) {
 
-	backend := os.Getenv("BACKEND_ENV")
-	version := os.Getenv("VERSION")
-	log.Printf("In the backend %v", backend)
-	header := ctx.Request.Header.Get("x-backend")
+	log.Printf("In the :: backend :%v :: version : %v", BACKEND, VERSION)
+	header := ctx.Request.Header.Get(HEADER)
 
-	log.Printf("Got %v in the header", backend)
+	log.Printf("Got the header request : %v", header)
 
 	res := BackendBResponse{
 		Status:  "success",
-		Backend: backend,
-		Version: version,
+		Backend: BACKEND,
+		Version: VERSION,
 		Header:  header,
 		BResponse: BResponse{
 			Id:        "123456",
