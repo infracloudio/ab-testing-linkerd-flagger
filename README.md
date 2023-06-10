@@ -80,7 +80,27 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
      ```
      $ kubectl apply -f flagger/header-based.yaml
      ```
-  4. Suppose you have made changes to the code or you have developed a different version of the API.
+  4. Configure and deploy Load generator for matrics analysis
+     1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/backend-a.yaml` i.e `x-backend`. <br />
+        **NOTE :** we have configure this header value as `x-backend` in flagger/header-based.yaml `headers` field
+        ```
+        - name: NEW_VERSION_HEADER_KEY
+          value: "x-backend"
+        ```
+      
+     2. Add value `new` for header key `x-backend` to route the traffic to new release. <br />
+        **NOTE :** We have specify this `new` value in flagger/weight-based.yaml file to configure traffic to new release
+        ```
+        - name: NEW_VERSION_HEADER_VAL
+          value: "new"
+        ```
+     3. Deploy load generator   
+        ```
+        $ make build-load-generator
+        $ make load-kind
+        $ make deploy-load-generator
+        ```
+  5. Suppose you have made changes to the code or you have developed a different version of the API.
       1. Build the changes as follows:
          ```
          $ make build-flagger-release
@@ -98,12 +118,16 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
          ```
          $ make patch-flagger-release
          ```
-  5. Observe the progress of a release
+  6. Observe the progress of a release
      ```
      $ watch kubectl -n test get canary
      ```
 ### Weight Based A/B Testing
-  To implement weight-based A/B testing follow similar steps as header-based A/B testing. But instead of applying a header-based canary, we need to apply a weight-based flagger Canary object as follows     in the third step.
-  ```
-  $ kubectl apply -f flagger/weight-based.yaml
-  ```
+1. To implement weight-based A/B testing follow similar steps as header-based A/B testing. But instead of applying a header-based canary, we need to apply a weight-based flagger Canary object as follows    in the third step.
+   ```
+   $ kubectl apply -f flagger/weight-based.yaml
+   ```
+2. And In the 4th step change value of `NEW_VERSION_HEADER_KEY` and `NEW_VERSION_HEADER_VAL` env variable to empty string so that load-generator is not going to include header in the request traffic.
+   
+
+    
