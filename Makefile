@@ -24,7 +24,8 @@ load-kind:
 	kind load docker-image load-generator
 
 deploy-flagger-release:
-	kubectl apply -f flagger/flagger-release.yaml
+	kubectl apply -f deploy/backend-A/
+	kubectl apply -f deploy/forwarder/
 
 deploy-all:
 	kubectl apply -f deploy/backend-A -f deploy/backend-B -f deploy/forwarder
@@ -43,5 +44,5 @@ setup-cluster-linkerd:
 setup-cluster-flagger:
 	kubectl apply -k github.com/fluxcd/flagger/kustomize/linkerd
 
-make path-flagger-release:
+patch-flagger-release:
 	kubectl patch deployment backend-a -n test --type='json' -p="$$(cat flagger/flagger-release-patch.json)"
