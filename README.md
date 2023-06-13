@@ -104,13 +104,14 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
       1. Build the changes as follows:
          ```
          $ make build-flagger-release
+         $ make load-kind
          ```
       2. Copy the image tag from the above image build and replace it with image tag in the value field of flagger/flagger-release-patch.json
          ```
          {
             "op": "replace",
             "path": "/spec/template/spec/containers/0/image",
-            "value": "backend-a:<your-image-tag>"
+            "value": "<image-name>:<tag>"
          }
          ```
          we are replacing image with new build and version as 'canary' for the deployment backend-a
