@@ -67,6 +67,11 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
 - We can adjust ratio of traffic by editing the value of weight in the linkerd/traffic-split.yaml file
 
 ## Header based And Weight Based A/B Testing with Flagger
+### Delete the HTTPRoute and TrafficSplit object
+Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally while testing
+  ```
+  $ make delete-httpRoute-traffisplit
+  ```
 ### Header based A/B Testing
   1. Install flagger
      ```
@@ -117,6 +122,7 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
          we are replacing image with new build and version as 'canary' for the deployment backend-a
       3. Deploy new release
          ```
+         $ make load-kind-backend-a TAG=<your-image-tag>
          $ make patch-flagger-release
          ```
   6. Observe the progress of a release

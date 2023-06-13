@@ -15,13 +15,19 @@ build-flagger-release:
 
 build-all: build-a build-b build-forwarder build-load-generator build-flagger-release
 
-
 load-kind:
 	kind load docker-image backend-a
 	kind load docker-image backend-b
 	kind load docker-image forwarder
 	kind load docker-image load-generator
 	kind load docker-image backend-b:v1
+
+load-kind-backend-a:
+	kind load docker-image backend-a:$(TAG)
+
+delete-httpRoute-traffisplit:
+	kubectl delete -f linkerd/httpRoute.yaml
+	kubectl delete -f linkerd/traffic-split.yaml
 
 deploy-flagger-release:
 	kubectl apply -f deploy/backend-A/

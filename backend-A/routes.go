@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func TestApiGetBook(ctx *gin.Context) {
+func GetBook(ctx *gin.Context) {
 
 	log.Printf("In the :: backend :%v :: version : %v", BACKEND, VERSION)
 	header := ctx.Request.Header.Get(HEADER)
