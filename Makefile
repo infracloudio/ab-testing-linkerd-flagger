@@ -11,10 +11,9 @@ build-load-generator:
 	docker build -t load-generator -f Dockerfile.load-generator .
 
 build-flagger-release:
-	@TAG=$$(uuidgen | tr '[:upper:]' '[:lower:]'); \
-    docker build -t backend-a:$$TAG -f Dockerfile.backend-b .
+	docker build -t backend-b:v1 -f Dockerfile.backend-b .
 
-build-all: build-a build-b build-forwarder build-load-generator
+build-all: build-a build-b build-forwarder build-load-generator build-flagger-release
 
 
 load-kind:
@@ -22,6 +21,7 @@ load-kind:
 	kind load docker-image backend-b
 	kind load docker-image forwarder
 	kind load docker-image load-generator
+	kind load docker-image backend-b:v1
 
 deploy-flagger-release:
 	kubectl apply -f deploy/backend-A/
