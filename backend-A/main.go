@@ -20,7 +20,7 @@ func main() {
 	fmt.Printf("VERSION :: %v\n", VERSION)
 	fmt.Print("------------------------------------------------------\n")
 	router := gin.Default()
-	router.GET("/", TestApiGetBook)
+	router.GET("/", GetBook)
 
 	router.Run(":8080")
 

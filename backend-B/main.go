@@ -21,7 +21,7 @@ func main() {
 	log.Print("------------------------------------------------------\n")
 
 	router := gin.Default()
-	router.GET("/", TestApiGetBook)
+	router.GET("/", GetBook)
 	router.Run(":8080")
 
 }
