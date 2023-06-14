@@ -122,7 +122,6 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
          we are replacing image with new build and version as 'canary' for the deployment backend-a
       3. Deploy new release
          ```
-         $ make load-kind-backend-a TAG=<your-image-tag>
          $ make patch-flagger-release
          ```
   6. Observe the progress of a release

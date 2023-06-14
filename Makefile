@@ -22,9 +22,6 @@ load-kind:
 	kind load docker-image load-generator
 	kind load docker-image backend-b:v1
 
-load-kind-backend-a:
-	kind load docker-image backend-a:$(TAG)
-
 delete-httpRoute-traffisplit:
 	kubectl delete -f linkerd/httpRoute.yaml
 	kubectl delete -f linkerd/traffic-split.yaml
