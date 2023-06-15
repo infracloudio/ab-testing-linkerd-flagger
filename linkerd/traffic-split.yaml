@@ -4,9 +4,9 @@ metadata:
   name: backend-split
   namespace: test
 spec:
-  service: backend-a
+  service: book-svc
   backends:
-  - service: backend-a
+  - service: book-svc
     weight: 500
-  - service: backend-a-v1
+  - service: book-svc-v1
     weight: 500

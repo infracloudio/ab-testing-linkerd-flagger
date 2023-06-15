@@ -13,7 +13,7 @@ For minikube cluster build the required images as follows:
   ```
 
 ## Deploy Application on the kubernetes cluster
-Deploy backend-a, backend-b and Forwarder
+Deploy book-svc, book-svc-v1 and Forwarder
   ```
   $ make deploy-all
   ```

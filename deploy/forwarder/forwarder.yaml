@@ -19,6 +19,9 @@ spec:
       - name: forwarder
         image: ghcr.io/infracloudio/forwarder:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: "BACKEND_URL"
+          value: "http://book-svc:8080"
         ports:
         - containerPort: 8080
 

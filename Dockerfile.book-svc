@@ -9,19 +9,19 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the rest of the application source code
-COPY ./backend-A-v1 .
+COPY ./book-svc .
 
 # Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -o backend-a-v1
+RUN CGO_ENABLED=0 GOOS=linux go build -o book-svc
 
 # Create a minimal container to run the Go application
 FROM scratch
 
 # Copy the built binary from the builder stage
-COPY --from=builder /app/backend-a-v1 /
+COPY --from=builder /app/book-svc /
 
 # Expose the port that the application listens on
 EXPOSE 8080
 
 # Set the entry point to run the built Go application
-CMD ["./backend-a-v1"]
+CMD ["./book-svc"]

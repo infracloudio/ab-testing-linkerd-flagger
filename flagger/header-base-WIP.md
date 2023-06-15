@@ -9,7 +9,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ make setup-cluster-flagger
      ```
-  2. Deploy backend-a and forwarder as follows:
+  2. Deploy book-svc and forwarder as follows:
      ```
      $ make deploy-flagger-release
      ```
@@ -18,7 +18,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      $ kubectl apply -f flagger/header-based.yaml
      ```
   4. Configure and deploy Load generator for matrics analysis
-     1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/backend-a.yaml` i.e `x-backend`. <br />
+     1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/book-svc.yaml` i.e `x-backend`. <br />
         **NOTE :** we have configure this header value as `x-backend` in flagger/header-based.yaml `headers` field
         ```
         - name: NEW_VERSION_HEADER_KEY
@@ -51,7 +51,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
             "value": "<image-name>:<tag>"
          }
          ```
-         we are replacing image with new build and version as 'canary' for the deployment backend-a
+         we are replacing image with new build and version as 'canary' for the deployment book-svc
       3. Deploy new release
          ```
          $ make patch-flagger-release

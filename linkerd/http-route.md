@@ -9,7 +9,7 @@ Create and configure namespace with linkerd proxy so that Deployments created in
   ```
 
 ## Deploy Application on the kubernetes cluster
-Deploy backend-a, backend-b and Forwarder
+Deploy book-svc, book-svc-v1 and Forwarder
   ```
   $ make deploy-all
   ```
@@ -17,12 +17,12 @@ Deploy backend-a, backend-b and Forwarder
 NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
 ## Header based Dynamic Routing
 ### Enable Dynamic Routing
-  - To dynamically route traffic to another version of application i.e backend-b we need configure httpRoute with the following
+  - To dynamically route traffic to another version of application i.e book-svc-v1 we need configure httpRoute with the following
     ```
     $ make configure-httpRoute
     ```
 ### Test With Request Header
-  - We can dynamically route the traffic to backend-b by using the request header `x-backend: test` 
+  - We can dynamically route the traffic to book-svc-v1 by using the request header `x-backend: test` 
   - If we want to configure dynamic routing with some different header we can do it by editing the header name and value in the linkerd/httpRoute.yaml file
   - Expose forwarder service
     ```

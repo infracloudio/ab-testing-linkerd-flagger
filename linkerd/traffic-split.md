@@ -9,7 +9,7 @@ Create and configure namespace with linkerd proxy so that Deployments created in
   ```
 
 ## Deploy Application on the kubernetes cluster
-Deploy backend-a, backend-b and Forwarder
+Deploy book-svc, book-svc-v1 and Forwarder
   ```
   $ make deploy-all
   ```

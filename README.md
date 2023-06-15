@@ -29,7 +29,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ make setup-cluster-flagger
      ```
-  2. Deploy backend-a and forwarder as follows:
+  2. Deploy book-svc and forwarder as follows:
      ```
      $ make deploy-flagger-release
      ```

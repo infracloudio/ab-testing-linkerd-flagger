@@ -1,13 +1,13 @@
 apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
-  name: backend-a
+  name: book-svc
   namespace: test
 spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: backend-a
+    name: book-svc
   service:
     port: 8080
   analysis:

@@ -2,12 +2,12 @@
   {
     "op": "replace",
     "path": "/spec/template/spec/containers/0/image",
-    "value": "ghcr.io/infracloudio/backend-a:v1"
+    "value": "ghcr.io/infracloudio/book-svc:v1"
   },
   {
     "op": "replace",
     "path": "/spec/template/spec/containers/0/env/0/value",
-    "value": "backend-a-v1"
+    "value": "book-svc-v1"
   },
   {
     "op": "replace",

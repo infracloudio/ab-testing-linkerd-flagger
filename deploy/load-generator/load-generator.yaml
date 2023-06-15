@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: ENDPOINT
-          value: "http://backend-a:8080/"
+          value: "http://book-svc:8080/"
         - name: CALL_DURATION
           value: "20"
         - name: SLEEP_DURATION
