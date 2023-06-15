@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: forwarder
-        image: forwarder:latest
+        image: ghcr.io/infracloudio/forwarder:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

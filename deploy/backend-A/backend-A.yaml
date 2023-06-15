@@ -17,8 +17,8 @@ spec:
         app: backend-a
     spec:
       containers:
-      - image: backend-a
-        imagePullPolicy: Never
+      - image: ghcr.io/infracloudio/backend-a:latest
+        imagePullPolicy: IfNotPresent
         name: backend-a
         ports:
         - containerPort: 8080

@@ -15,7 +15,7 @@ spec:
         - name: "x-backend"
           value: "test"
       backendRefs:
-        - name: "backend-b"
+        - name: "backend-a-v1"
           port: 8080
     - backendRefs:
       - name: "backend-a"

@@ -1,8 +1,8 @@
 build-a:
 	docker build -t backend-a -f Dockerfile.backend-a .
 
-build-b:
-	docker build -t backend-b -f Dockerfile.backend-b .
+build-a-v1:
+	docker build -t backend-a:v1 -f Dockerfile.backend-a-v1 .
 
 build-forwarder:
 	docker build -t forwarder -f Dockerfile.forwarder .
@@ -10,17 +10,13 @@ build-forwarder:
 build-load-generator:
 	docker build -t load-generator -f Dockerfile.load-generator .
 
-build-flagger-release:
-	docker build -t backend-b:v1 -f Dockerfile.backend-b .
-
-build-all: build-a build-b build-forwarder build-load-generator build-flagger-release
+build-all: build-a build-a-v1 build-forwarder build-load-generator 
 
 load-kind:
 	kind load docker-image backend-a
-	kind load docker-image backend-b
 	kind load docker-image forwarder
 	kind load docker-image load-generator
-	kind load docker-image backend-b:v1
+	kind load docker-image backend-a:v1
 
 delete-httpRoute-traffisplit:
 	kubectl delete -f linkerd/httpRoute.yaml
@@ -31,7 +27,7 @@ deploy-flagger-release:
 	kubectl apply -f deploy/forwarder/
 
 deploy-all:
-	kubectl apply -f deploy/backend-A -f deploy/backend-B -f deploy/forwarder
+	kubectl apply -f deploy/backend-A -f deploy/backend-a-v1 -f deploy/forwarder
 
 deploy-load-generator:
 	kubectl apply -f deploy/load-generator

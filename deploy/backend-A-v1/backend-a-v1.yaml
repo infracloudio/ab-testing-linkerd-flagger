@@ -2,28 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: backend-b
-  name: backend-b
+    app: backend-a-v1
+  name: backend-a-v1
   namespace: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-b
+      app: backend-a-v1
   template:
     metadata:
       labels:
-        app: backend-b
+        app: backend-a-v1
     spec:
       containers:
-      - image: backend-b
-        imagePullPolicy: Never
-        name: backend-b
+      - image: ghcr.io/infracloudio/backend-a:v1
+        imagePullPolicy: IfNotPresent
+        name: backend-a-v1
         ports:
         - containerPort: 8080
         env:
         - name: BACKEND_ENV
-          value: "backend-b"
+          value: "backend-a-v1"
         - name: HEADER
           value: "x-backend"
         - name: VERSION
@@ -39,8 +39,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: backend-b
-  name: backend-b
+    app: backend-a-v1
+  name: backend-a-v1
   namespace: test
 spec:
   ports:
@@ -49,5 +49,5 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: backend-b
+    app: backend-a-v1
   type: ClusterIP

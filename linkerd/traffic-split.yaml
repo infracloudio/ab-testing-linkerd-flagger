@@ -8,5 +8,5 @@ spec:
   backends:
   - service: backend-a
     weight: 500
-  - service: backend-b
+  - service: backend-a-v1
     weight: 500
