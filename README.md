@@ -18,13 +18,13 @@ Create and configure namespace with linkerd proxy so that Deployments created in
   ```
 
 
-## Header based And Weight Based A/B Testing with Flagger
+## Weight Based A/B Testing with Flagger
 ### Delete the HTTPRoute and TrafficSplit object
 Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally while testing
   ```
   $ make delete-httpRoute-traffisplit
   ```
-### Header based A/B Testing
+### Follow following steps for weight Based A/B Testing
   1. Install flagger
      ```
      $ make setup-cluster-flagger
