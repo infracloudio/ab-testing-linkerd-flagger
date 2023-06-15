@@ -10,7 +10,6 @@ import (
 var (
 	VERSION = os.Getenv("VERSION")
 	BACKEND = os.Getenv("BACKEND_ENV")
-	HEADER = os.Getenv("HEADER")
 )
 
 func main() {

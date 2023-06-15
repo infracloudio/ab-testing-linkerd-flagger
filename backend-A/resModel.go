@@ -4,7 +4,6 @@ type BackendAResponse struct {
 	Status  string `json:"status"`
 	Backend string `json:"backend"`
 	Version string `json:"version"`
-	Header  string `json:"header"`
 	AResponse
 }
 

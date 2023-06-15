@@ -54,25 +54,13 @@ NOTE: We should not enable Dynamic routing and traffic-splitting simultaneously.
     $ curl -sX GET -H 'x-backend: test' localhost:4000/
     ```
 
-## Traffic Splitting
-- We can enable traffic split by the ratio 50:50 between the two versions/backend as follows:
-  ```
-  $ make configure-traffic-split
-  ```
-- Expose forwarder service
-  ```
-  $ kubectl port-forward svc/forwarder-service 4000:8080 -n test
-  ```
-- Test traffic-split with the `curl -sX GET localhost:4000/` such that request will be routed to both version/backend according traffic split ratio.
-- We can adjust ratio of traffic by editing the value of weight in the linkerd/traffic-split.yaml file
-
-## Header based And Weight Based A/B Testing with Flagger
+## A/B Testing with Flagger
 ### Delete the HTTPRoute and TrafficSplit object
 Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally while testing
   ```
   $ make delete-httpRoute-traffisplit
   ```
-### Header based A/B Testing
+### Implement A/B Testing
   1. Install flagger
      ```
      $ make setup-cluster-flagger
@@ -83,23 +71,9 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
   3. Apply flagger header based canary object
      ```
-     $ kubectl apply -f flagger/header-based.yaml
+     $ kubectl apply -f flagger/weight-based.yaml
      ```
   4. Configure and deploy Load generator for matrics analysis
-     1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/backend-a.yaml` i.e `x-backend`. <br />
-        **NOTE :** we have configure this header value as `x-backend` in flagger/header-based.yaml `headers` field
-        ```
-        - name: NEW_VERSION_HEADER_KEY
-          value: "x-backend"
-        ```
-      
-     2. Add value `new` for header key `x-backend` to route the traffic to new release. <br />
-        **NOTE :** We have specify this `new` value in flagger/weight-based.yaml file to configure traffic to new release
-        ```
-        - name: NEW_VERSION_HEADER_VAL
-          value: "new"
-        ```
-     3. Deploy load generator   
         ```
         $ make build-load-generator
         $ make load-kind
@@ -111,15 +85,6 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
          $ make build-flagger-release
          $ make load-kind
          ```
-      2. Copy the image tag from the above image build and replace it with image tag in the value field of flagger/flagger-release-patch.json
-         ```
-         {
-            "op": "replace",
-            "path": "/spec/template/spec/containers/0/image",
-            "value": "<image-name>:<tag>"
-         }
-         ```
-         we are replacing image with new build and version as 'canary' for the deployment backend-a
       3. Deploy new release
          ```
          $ make patch-flagger-release
@@ -128,12 +93,4 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ watch kubectl -n test get canary
      ```
-### Weight Based A/B Testing
-1. To implement weight-based A/B testing follow similar steps as header-based A/B testing. But instead of applying a header-based canary, we need to apply a weight-based flagger Canary object as follows    in the third step.
-   ```
-   $ kubectl apply -f flagger/weight-based.yaml
-   ```
-2. And In the 4th step change value of `NEW_VERSION_HEADER_KEY` and `NEW_VERSION_HEADER_VAL` env variable to empty string so that load-generator is not going to include header in the request traffic.
-   
-
     
