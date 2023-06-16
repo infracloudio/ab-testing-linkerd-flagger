@@ -5,7 +5,7 @@ metadata:
   namespace: test
 spec:
   parentRefs:
-    - name: backend-a
+    - name: book-svc
       kind: Service
       group: core
       port: 8080
@@ -15,8 +15,8 @@ spec:
         - name: "x-backend"
           value: "test"
       backendRefs:
-        - name: "backend-b"
+        - name: "book-svc-v1"
           port: 8080
     - backendRefs:
-      - name: "backend-a"
+      - name: "book-svc"
         port: 8080

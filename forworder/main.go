@@ -5,16 +5,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
 )
 
-// type ResponseData struct {
-// 	Backend string `json:"backend"`
-// 	Version string `json:"version"`
-// }
+var (
+	URL = os.Getenv("BACKEND_URL")
+)
+
 
 func main() {
 
@@ -30,16 +31,14 @@ func Forworder(ctx *gin.Context) {
 	client := &http.Client{}
 
 	// Create a new GET request
-	req, err := http.NewRequest("GET", "http://backend-a:8080", nil)
+	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
 		fmt.Println("Error creating request:", err)
 		return
 	}
 
-
 	// Set headers on the request
 	req.Header = ctx.Request.Header
-
 
 	// Send the request
 	resp, err := client.Do(req)

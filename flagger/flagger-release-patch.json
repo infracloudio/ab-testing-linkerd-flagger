@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/spec/template/spec/containers/0/image",
-    "value": "backend-a:65603693-1400-489f-bb04-d98d752fda59"
+    "value": "ghcr.io/infracloudio/book-svc:v1"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/env/0/value",
+    "value": "book-svc-v1"
   },
   {
     "op": "replace",
     "path": "/spec/template/spec/containers/0/env/1/value",
-    "value": "canary"
+    "value": "V1"
   }
 ]

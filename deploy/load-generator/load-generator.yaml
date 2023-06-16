@@ -16,12 +16,12 @@ spec:
         app: load
     spec:
       containers:
-      - name: load
-        image: load-generator
+      - name: load-generator
+        image: ghcr.io/infracloudio/load-generator:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: ENDPOINT
-          value: "http://backend-a:8080/"
+          value: "http://book-svc:8080/"
         - name: CALL_DURATION
           value: "20"
         - name: SLEEP_DURATION
