@@ -30,14 +30,15 @@ delete-httpRoute-traffisplit:
 	kubectl delete -f linkerd/traffic-split.yaml
 
 deploy-flagger-release:
-	kubectl apply -f deploy/book-svc/
-	kubectl apply -f deploy/forwarder/
+	kubectl apply -f deploy/book-svc.yaml
+	kubectl apply -f deploy/forwarder.yaml
+	kubectl apply -f deploy/ingress.yaml
 
 deploy-all:
-	kubectl apply -f deploy/book-svc -f deploy/book-svc-v1 -f deploy/forwarder
+	kubectl apply -f deploy/ -n test
 
 deploy-load-generator:
-	kubectl apply -f deploy/load-generator
+	kubectl apply -f deploy/load-generator.yaml
 
 configure-httpRoute:
 	kubectl apply -f linkerd/httpRoute.yaml
