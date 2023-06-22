@@ -32,7 +32,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ make setup-cluster-flagger
      ```
-  2. Deploy book-svc and forwarder as follows:
+  2. Deploy book-svc as follows:
      ```
      $ make deploy-flagger-release
      ```
@@ -40,20 +40,16 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ kubectl apply -f flagger/weight-based.yaml
      ```
-  4. Deploy Load generator for matrics analysis
+  4. Deploy Load generator for metrics analysis
      1. Deploy load generator   
         ```
         $ make deploy-load-generator
         ```
   5. Suppose you have made changes to the code or you have developed a different version of the API.
-      1. Build the changes as follows:
-         ```
-         $ make build-flagger-release
-         ```
-      3. Deploy new release
-         ```
-         $ make patch-flagger-release
-         ```
+      Deploy new release
+      ```
+      $ make patch-flagger-release
+      ```
   6. Observe the progress of a release
      ```
      $ watch kubectl -n test get canary
@@ -75,7 +71,7 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ kubectl apply -f flagger/header-based.yaml
      ```
-  4. Configure and deploy Load generator for matrics analysis
+  4. Configure and deploy Load generator for metrics analysis
      1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/book-svc.yaml` i.e `x-backend`. <br />
         **NOTE :** we have configure this header value as `x-backend` in flagger/header-based.yaml `headers` field
         ```

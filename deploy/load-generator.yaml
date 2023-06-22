@@ -27,6 +27,6 @@ spec:
         - name: SLEEP_DURATION
           value: "10"
         - name: NEW_VERSION_HEADER_KEY
-          value: ""
+          value: "x-backend"
         - name: NEW_VERSION_HEADER_VAL
-          value: ""
+          value: "new"
