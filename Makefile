@@ -10,7 +10,7 @@ build-forwarder:
 build-load-generator:
 	docker build -t load-generator -f Dockerfile.load-generator .
 
-build-all: build-a build-a-v1 build-forwarder build-load-generator
+build-all: build-a build-a-v1 build-load-generator build-forwarder
 
 build-git-reg-image:
 	docker build -t ghcr.io/infracloudio/book-svc:latest -f Dockerfile.book-svc .
@@ -21,7 +21,6 @@ build-git-reg-image:
 
 load-kind:
 	kind load docker-image book-svc
-	kind load docker-image forwarder
 	kind load docker-image load-generator
 	kind load docker-image book-svc:v1
 
@@ -30,14 +29,14 @@ delete-httpRoute-traffisplit:
 	kubectl delete -f linkerd/traffic-split.yaml
 
 deploy-flagger-release:
-	kubectl apply -f deploy/book-svc/
-	kubectl apply -f deploy/forwarder/
+	kubectl apply -f deploy/book-svc.yaml
+	kubectl apply -f deploy/ingress.yaml
 
 deploy-all:
-	kubectl apply -f deploy/book-svc -f deploy/book-svc-v1 -f deploy/forwarder
+	kubectl apply -f deploy/ -n test
 
 deploy-load-generator:
-	kubectl apply -f deploy/load-generator
+	kubectl apply -f deploy/load-generator.yaml
 
 configure-httpRoute:
 	kubectl apply -f linkerd/httpRoute.yaml

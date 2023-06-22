@@ -4,21 +4,33 @@ metadata:
   name: book-svc
   namespace: test
 spec:
+  # ingress reference
+  provider: nginx
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: book-svc
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: book-svc
   service:
+    # container port
     port: 8080
   analysis:
-    interval: 30s
+    interval: 2m
     threshold: 10
-    iterations: 5
+    iterations: 20
     match:
       # curl -H 'X-Canary: always' http://app.example.com
       - headers:
           x-backend:
             exact: "new"
+      # curl -b 'canary=always' http://app.example.com
+      # - headers:
+      #     cookie:
+      #       exact: "canary"
+    # Linkerd Prometheus checks
     metrics:
     - name: request-success-rate
       thresholdRange:
