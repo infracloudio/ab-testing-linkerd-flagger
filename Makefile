@@ -30,7 +30,11 @@ delete-httpRoute-traffisplit:
 
 deploy-flagger-release:
 	kubectl apply -f deploy/book-svc.yaml
-	kubectl apply -f deploy/ingress.yaml
+	@if [ "$(ROUTING)" = "header-based" ]; then \
+		kubectl apply -f deploy/ingress.yaml; \
+	else \
+		kubectl apply -f deploy/forwarder.yaml; \
+	fi
 
 deploy-all:
 	kubectl apply -f deploy/ -n test
