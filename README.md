@@ -40,7 +40,12 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      ```
      $ kubectl apply -f flagger/weight-based.yaml
      ```
-  4. Deploy Load generator for metrics analysis
+  4. Configure and deploy Load generator for metrics analysis
+     1. Modify env var ENDPOINT in the deploy/load-generator.yaml to generate internal traffic for book service.
+        ```
+        - name: ENDPOINT
+          value: "http://book-svc:8080"
+        ```
      1. Deploy load generator   
         ```
         $ make deploy-load-generator
@@ -72,20 +77,26 @@ Delete all HTTPRoute and TrafficSplit objects as flagger creates them internally
      $ kubectl apply -f flagger/header-based.yaml
      ```
   4. Configure and deploy Load generator for metrics analysis
-     1. Add `NEW_VERSION_HEADER_KEY` with the same value as `HEADER` env variable in the `deploy/book-svc.yaml` i.e `x-backend`. <br />
+     1. For header-based testing Modify value of env variable `NEW_VERSION_HEADER_KEY` to `x-backend` in the deploy/load-generator.yaml<br />
         **NOTE :** we have configure this header value as `x-backend` in flagger/header-based.yaml `headers` field
         ```
         - name: NEW_VERSION_HEADER_KEY
           value: "x-backend"
         ```
       
-     2. Add value `new` for header key `x-backend` to route the traffic to new release. <br />
+     2. Modify value of env var `NEW_VERSION_HEADER_VAL` to `new` in the deploy/load-generator.yaml 
+        We configured load-generator send load requests with the header `x-backend: new` to route the traffic to new release. <br />
         **NOTE :** We have specify this `new` value in flagger/weight-based.yaml file to configure traffic to new release
         ```
         - name: NEW_VERSION_HEADER_VAL
           value: "new"
         ```
-     3. Deploy load generator   
+     3. Modify ENDPOINT to generate external traffic
+        ```
+        - name: ENDPOINT
+          value: "http://app.example.com"
+        ```
+     4. Deploy load generator   
         ```
         $ make deploy-load-generator
         ```

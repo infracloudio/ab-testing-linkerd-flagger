@@ -4,11 +4,6 @@ metadata:
   name: book-svc
   namespace: test
 spec:
-  provider: nginx
-  ingressRef:
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    name: book-svc
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
